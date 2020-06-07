@@ -3,8 +3,10 @@ package main
 import (
 	"fmt"
 	"net"
+
+	"github.com/astaxie/beego/logs"
 	"github.com/wsq1220/chatroomClient/proto"
-)
+)	
 
 var userId int
 var password string
@@ -15,11 +17,18 @@ func init() {
 }
 
 func main() {
+	if err := initLogger(); err != nil {
+		fmt.Printf("init logger failed, err: %v\n", err)
+		panic(err)
+	}
+	fmt.Println("init logger succ!")
+
 	// 终端输入用户名和密码
-	fmt.Println("please input yourid:")
-	fmt.Scanf("%d", &userId)
-	fmt.Println("please input your password:")
-	fmt.Scanf("%s", &password)
+	fmt.Println("please input your id and password, the format as id@password:")
+	fmt.Scanf("%d@%s", &userId, &password)
+	// fmt.Println("please input your password:")
+	// fmt.Scanf("%s", &password)
+	logs.Debug("id[%v], password[%v]", userId, password)
 
 	conn, err := net.Dial("tcp", "localhost:10000")
 	if err != nil {
@@ -30,6 +39,7 @@ func main() {
 	err = login(conn, userId, password)
 	if err != nil {
 		fmt.Printf("login failed, err: %v\n", err)
+		logs.Error("login failed, err: %v\n", err)
 		return
 	}
 

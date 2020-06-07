@@ -21,6 +21,7 @@ func register(conn net.Conn, userId int, password string) (err error) {
 	register.User.Alias = fmt.Sprintf("v-User%d", userId)
 	register.User.Gender = "Unknown"
 	register.User.Avatar = fmt.Sprintf("./img/%d.png", userId)
+	logs.Debug("the user will register: %v", register.User)
 
 	data, err := json.Marshal(register)
 	if err != nil {
@@ -54,12 +55,12 @@ func register(conn net.Conn, userId int, password string) (err error) {
 		return
 	}
 
-	msg, err := readPackage(conn)
-	if err != nil {
-		logs.Error("read package failed, err: %v", err)
-		return
-	}
-	fmt.Println(msg)
+	// msg, err := readPackage(conn)
+	// if err != nil {
+	// 	logs.Error("read package failed, err: %v", err)
+	// 	return
+	// }
+	// fmt.Println(msg)
 
 	return
 }

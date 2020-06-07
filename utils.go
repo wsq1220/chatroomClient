@@ -13,7 +13,8 @@ import (
 func readPackage(conn net.Conn) (msg proto.Message, err error) {
 	var buf [8192]byte
 	n, err := conn.Read(buf[0:4])
-	if err != nil || n != 4 {
+	logs.Debug("the val of n: %v", n)
+	if err != nil{
 		logs.Error("client read head failed, err: %v", err)
 		return
 	}
