@@ -11,6 +11,7 @@ import (
 
 
 func readPackage(conn net.Conn) (msg proto.Message, err error) {
+	logs.Debug("entered readPackage...")
 	var buf [8192]byte
 	n, err := conn.Read(buf[0:4])
 	logs.Debug("the val of n: %v", n)
@@ -18,6 +19,7 @@ func readPackage(conn net.Conn) (msg proto.Message, err error) {
 		logs.Error("client read head failed, err: %v", err)
 		return
 	}
+	logs.Debug("n: %v", n)
 
 	var packLen uint32
 	packLen = binary.BigEndian.Uint32(buf[0:4])

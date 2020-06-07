@@ -84,7 +84,7 @@ func enterMenu(conn net.Conn) {
 	fmt.Println("5. more")
 
 	var op int
-	fmt.Scanf("%d", &op)
+	fmt.Scanf("%d\n", &op)
 	switch op {
 	case 1:
 		listUseronline()

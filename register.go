@@ -49,11 +49,12 @@ func register(conn net.Conn, userId int, password string) (err error) {
 		return
 	}
 
-	n, err = conn.Write([]byte(data))
+	n, err = conn.Write([]byte(registerMsgData))
 	if err != nil {
 		logs.Error("write body data failed when registering, err: %v", err)
 		return
 	}
+	logs.Debug("write register data finished!")
 
 	// msg, err := readPackage(conn)
 	// if err != nil {
@@ -61,6 +62,6 @@ func register(conn net.Conn, userId int, password string) (err error) {
 	// 	return
 	// }
 	// fmt.Println(msg)
-
+	logs.Info("register succ!")
 	return
 }

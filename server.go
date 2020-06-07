@@ -11,6 +11,7 @@ import (
 )
 
 func processServerMsg(conn net.Conn) {
+	logs.Debug("entered the processServerMsg")
 	defer func() {
 		if err := recover(); err != nil {
 			logs.Error("Error when processing server msg in goroutine, err: %v", err)

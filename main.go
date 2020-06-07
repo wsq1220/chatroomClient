@@ -25,7 +25,8 @@ func main() {
 
 	// 终端输入用户名和密码
 	fmt.Println("please input your id and password, the format as id@password:")
-	fmt.Scanf("%d@%s", &userId, &password)
+	// 注意换行符  会读取换行符
+	fmt.Scanf("%d@%s\n", &userId, &password)
 	// fmt.Println("please input your password:")
 	// fmt.Scanf("%s", &password)
 	logs.Debug("id[%v], password[%v]", userId, password)

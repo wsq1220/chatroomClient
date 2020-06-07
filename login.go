@@ -12,7 +12,7 @@ import (
 )
 
 // TODO
-func login(conn net.Conn,userId int, password string) (err error) {
+func login(conn net.Conn, userId int, password string) (err error) {
 	var loginMsg proto.Message
 	loginMsg.Cmd = proto.UserLoginCmd
 
@@ -44,7 +44,7 @@ func login(conn net.Conn,userId int, password string) (err error) {
 		return
 	}
 
-	n, err  = conn.Write(data)
+	n, err = conn.Write([]byte(data))
 	if err != nil {
 		logs.Error("write body data failed, err: %v", err)
 		return
@@ -57,7 +57,7 @@ func login(conn net.Conn,userId int, password string) (err error) {
 
 	loginMsg, err = readPackage(conn)
 	if err != nil {
-		logs.Error("read package failed, err: %v", err)
+		logs.Error("read package failed after login, err: %v", err)
 		return
 	}
 
@@ -67,6 +67,7 @@ func login(conn net.Conn,userId int, password string) (err error) {
 		logs.Error("json unmarshal failed, err: %v", err)
 		return
 	}
+	logs.Debug("login resp: %v", loginResp)
 
 	if loginResp.StatusCode == 500 {
 		fmt.Printf("user %v not register, start registering...\n", userId)
@@ -75,6 +76,7 @@ func login(conn net.Conn,userId int, password string) (err error) {
 			fmt.Printf("register failed, err: %v\n", err)
 			return
 		}
+		logs.Info("register succ!")
 		os.Exit(0)
 	}
 
@@ -82,7 +84,7 @@ func login(conn net.Conn,userId int, password string) (err error) {
 		if v == userId {
 			continue
 		}
-		fmt.Println("user logined: %v", v)
+		fmt.Printf("user logined: %v\n", v)
 
 		// 添加到map中
 		user := &proto.User{
