@@ -1,5 +1,5 @@
 # chatroomClient
-chat room Client using Go
+Chat room Client using Go
 
 Build and run
 
