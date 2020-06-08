@@ -13,4 +13,4 @@ go build -o client ./chatroomClient
 
 ./client
 
-![Image](https://github.com/wsq1220chatroomClient/blob/master/img/pro.png)
+![Image](https://raw.githubusercontent.com/wsq1220/chatroomClient/master/img/pro.png)
