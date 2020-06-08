@@ -8,6 +8,7 @@ import (
 	"os"
 
 	"github.com/astaxie/beego/logs"
+	"github.com/fatih/color"
 	"github.com/wsq1220/chatroomClient/proto"
 )
 
@@ -84,8 +85,11 @@ func login(conn net.Conn, userId int, password string) (err error) {
 		if v == userId {
 			continue
 		}
-		fmt.Printf("user logined: %v\n", v)
-
+		color.Set(color.FgHiBlue)
+		fmt.Print("user logined:")
+		color.Set(color.FgGreen)
+		fmt.Println(v)
+		color.Unset()
 		// 添加到map中
 		user := &proto.User{
 			UserId: v,

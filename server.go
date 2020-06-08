@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/astaxie/beego/logs"
+	"github.com/fatih/color"
 	"github.com/wsq1220/chatroomClient/proto"
 )
 
@@ -42,7 +43,9 @@ func processServerMsg(conn net.Conn) {
 			errMsg := fmt.Sprintf("[%v] is not supported!", msg.Cmd)
 			err = fmt.Errorf(errMsg)
 			// 需要显示在终端让用户知道
+			color.Set(color.FgRed, color.Bold)
 			fmt.Println(errMsg)
+			color.Unset()
 			logs.Error(errMsg)
 			return
 		}
@@ -58,7 +61,9 @@ func recvMsgFromServer(msg proto.Message) {
 	}
 	msgStr := fmt.Sprintf("[%d]: %s", recvMsgReq.UserId, recvMsgReq.Data)
 	// 显示用户消息在在终端
+	color.Set(color.FgCyan)
 	fmt.Println(msgStr)
+	color.Unset()
 
 	// 发送消息到管道
 	msgChan <- recvMsgReq

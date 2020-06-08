@@ -6,7 +6,7 @@ import (
 
 	"github.com/astaxie/beego/logs"
 	"github.com/wsq1220/chatroomClient/proto"
-)	
+)
 
 var userId int
 var password string
@@ -22,6 +22,7 @@ func main() {
 		panic(err)
 	}
 	fmt.Println("init logger succ!")
+	// also can use flag
 
 	// 终端输入用户名和密码
 	fmt.Println("please input your id and password, the format as id@password:")

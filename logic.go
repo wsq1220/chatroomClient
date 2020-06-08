@@ -8,15 +8,20 @@ import (
 	"os"
 
 	"github.com/astaxie/beego/logs"
+	"github.com/fatih/color"
 	"github.com/wsq1220/chatroomClient/proto"
 )
 
 func listUnreadMsg(conn net.Conn) {
 	select {
 	case msg := <-msgChan:
+		color.Set(color.FgHiCyan)
 		fmt.Println(msg.UserId, ":", msg.Data)
+		color.Unset()
 	default:
+		color.Set(color.FgHiRed)
 		fmt.Println("no more")
+		color.Unset()
 		return
 	}
 }
@@ -76,12 +81,25 @@ func sendTextMsg(conn net.Conn, text string) {
 }
 
 func enterMenu(conn net.Conn) {
+	color.Set(color.FgHiWhite, color.Bold)
+	// defer color.Unset()
 	fmt.Println("------Menu Page--------")
+	color.Unset()
+	color.Set(color.FgHiBlue, color.Bold)
 	fmt.Println("1. list all online user")
+	color.Unset()
+	color.Set(color.FgHiCyan, color.Bold)
 	fmt.Println("2. list all unread message")
+	color.Unset()
+	color.Set(color.FgYellow, color.Bold)
 	fmt.Println("3. go to chat")
+	color.Unset()
+	color.Set(color.FgMagenta, color.Bold)
 	fmt.Println("4. exit")
+	color.Unset()
+	color.Set(color.FgHiWhite, color.Bold)
 	fmt.Println("5. more")
+	color.Unset()
 
 	var op int
 	fmt.Scanf("%d\n", &op)
@@ -95,7 +113,9 @@ func enterMenu(conn net.Conn) {
 	case 4:
 		os.Exit(0)
 	case 5:
+		color.Set(color.FgRed, color.Bold)
 		fmt.Println("sorry, no more")
+		color.Unset()
 		os.Exit(0)
 	}
 }
